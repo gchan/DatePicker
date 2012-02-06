@@ -13,43 +13,41 @@
 	<p id="date"></p>
 	<p>Flat mode, single selection, the week start monday.</p>
 	<pre>$('#date').DatePicker({
-		flat: true,
-		date: '2008-07-31',
-		current: '2008-07-31',
-		calendars: 1,
-		starts: 1
-	});
-	</pre></br>
+	flat: true,
+	date: '2008-07-31',
+	current: '2008-07-31',
+	calendars: 1,
+	starts: 1
+});</pre></br>
 
 	<p id="date2"></p>
 	<p>Flat mode, multiple selection, disabled dates, special day, the week start sunday.</p>
 	<pre>$('#date2').DatePicker({
-		flat: true,
-		date: ['2008-07-31', '2008-07-28'],
-		current: '2008-07-31',
-		format: 'Y-m-d',
-		calendars: 1,
-		mode: 'multiple',
-		onRender: function(date) {
-			return {
-				disabled: (date.valueOf() < now.valueOf()),
-				className: date.valueOf() == now2.valueOf() ? 'datepickerSpecial' : false
-			}
-		},
-		starts: 0
-	});
-	</pre>
+	flat: true,
+	date: ['2008-07-31', '2008-07-28'],
+	current: '2008-07-31',
+	format: 'Y-m-d',
+	calendars: 1,
+	mode: 'multiple',
+	onRender: function(date) {
+		return {
+			disabled: (date.valueOf() < now.valueOf()),
+			className: date.valueOf() == now2.valueOf() ? 'datepickerSpecial' : false
+		}
+	},
+	starts: 0
+});</pre>
 
 	<p id="date3"></p>
 	<p>Flat mode, range selection, 3 calendars.</p>
 	<pre>$('#date3').DatePicker({
-		flat: true,
-		date: ['2008-07-28','2008-07-31'],
-		current: '2008-07-31',
-		calendars: 3,
-		mode: 'range',
-		starts: 1
-	});</pre></br>			
+	flat: true,
+	date: ['2008-07-28','2008-07-31'],
+	current: '2008-07-31',
+	calendars: 3,
+	mode: 'range',
+	starts: 1
+});</pre></br>			
 	<p><a href="#" id="clearSelection">Clear selection</a></p>
 	<pre>$('#date3').DatePickerClear();</pre></br>
 
@@ -59,22 +57,21 @@
 	</p>
 	<p>Attached to an text field and usign callbacks to update the date selection with the value from the field.</p>
 	<pre>$('#inputDate').DatePicker({
-		format:'m/d/Y',
-		date: $('#inputDate').val(),
-		current: $('#inputDate').val(),
-		starts: 1,
-		position: 'r',
-		onBeforeShow: function(){
-			$('#inputDate').DatePickerSetDate($('#inputDate').val(), true);
-		},
-		onChange: function(formated, dates){
-			$('#inputDate').val(formated);
-			if ($('#closeOnSelect input').attr('checked')) {
-				$('#inputDate').DatePickerHide();
-			}
+	format:'m/d/Y',
+	date: $('#inputDate').val(),
+	current: $('#inputDate').val(),
+	starts: 1,
+	position: 'r',
+	onBeforeShow: function(){
+		$('#inputDate').DatePickerSetDate($('#inputDate').val(), true);
+	},
+	onChange: function(formated, dates){
+		$('#inputDate').val(formated);
+		if ($('#closeOnSelect input').attr('checked')) {
+			$('#inputDate').DatePickerHide();
 		}
-	});
-	</pre></br>
+	}
+});</pre></br>
 
 	<div id="widget">
 		<div id="widgetField">
@@ -86,16 +83,15 @@
 	</div>
 	<p>Flat mode, inside a custom widget and with custom design.</p>
 	<pre>$('#widgetCalendar').DatePicker({
-		flat: true,
-		format: 'd B, Y',
-		date: [new Date(now3), new Date(now4)],
-		calendars: 3,
-		mode: 'range',
-		starts: 1,
-		onChange: function(formated) {
-			$('#widgetField span').get(0).innerHTML = formated.join(' - ');
-		}
-	});
-	</pre>
+	flat: true,
+	format: 'd B, Y',
+	date: [new Date(now3), new Date(now4)],
+	calendars: 3,
+	mode: 'range',
+	starts: 1,
+	onChange: function(formated) {
+		$('#widgetField span').get(0).innerHTML = formated.join(' - ');
+	}
+});</pre>
 </body>
 </html>
