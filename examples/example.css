@@ -37,6 +37,7 @@ html, body {
 }
 body {
 	/*text-align: center;*/
+	padding-left: 50px;
 	overflow: auto;
 }
 .wrapper {
