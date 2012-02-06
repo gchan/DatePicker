@@ -9,87 +9,92 @@
     <script type="text/javascript" src="example_layout.js"></script>
 </head>
 <body>
-        <h1>Date Picker - jQuery plugin</h1>
-				<p id="date"></p></br>
-				<p>Flat mode, single selection, the week start monday.</p>
-			<pre>$('#date').DatePicker({
-	flat: true,
-	date: '2008-07-31',
-	current: '2008-07-31',
-	calendars: 1,
-	starts: 1
-});</pre></br>
-				<p id="date2"></p></br>
-				<p>Flat mode, multiple selection, disabled dates, special day, the week start sunday.</p>
-			<pre>$('#date2').DatePicker({
-	flat: true,
-	date: ['2008-07-31', '2008-07-28'],
-	current: '2008-07-31',
-	format: 'Y-m-d',
-	calendars: 1,
-	mode: 'multiple',
-	onRender: function(date) {
-		return {
-			disabled: (date.valueOf() < now.valueOf()),
-			className: date.valueOf() == now2.valueOf() ? 'datepickerSpecial' : false
-		}
-	},
-	starts: 0
-});</pre></br>
-				<p id="date3"></p></br>
-				<p>Flat mode, range selection, 3 calendars.</p>
-			<pre>$('#date3').DatePicker({
-	flat: true,
-	date: ['2008-07-28','2008-07-31'],
-	current: '2008-07-31',
-	calendars: 3,
-	mode: 'range',
-	starts: 1
-});</pre></br>				
-	<p><a href="#" id="clearSelection">Clear selection</a></p>
-				<pre>$('#date3').DatePickerClear();</pre></br></br>
+    <h1>Date Picker - jQuery plugin</h1>
+	<p id="date"></p>
+	<p>Flat mode, single selection, the week start monday.</p>
+	<pre>$('#date').DatePicker({
+		flat: true,
+		date: '2008-07-31',
+		current: '2008-07-31',
+		calendars: 1,
+		starts: 1
+	});
+	</pre></br>
 
-				<p>
-					<input class="inputDate" id="inputDate" value="06/14/2008" />
-					<label id="closeOnSelect"><input type="checkbox" /> Close on selection</label>
-				</p></br>
-			<p>Attached to an text field and usign callbacks to update the date selection with the value from the field.</p>
-			<pre>$('#inputDate').DatePicker({
-	format:'m/d/Y',
-	date: $('#inputDate').val(),
-	current: $('#inputDate').val(),
-	starts: 1,
-	position: 'r',
-	onBeforeShow: function(){
-		$('#inputDate').DatePickerSetDate($('#inputDate').val(), true);
-	},
-	onChange: function(formated, dates){
-		$('#inputDate').val(formated);
-		if ($('#closeOnSelect input').attr('checked')) {
-			$('#inputDate').DatePickerHide();
+	<p id="date2"></p>
+	<p>Flat mode, multiple selection, disabled dates, special day, the week start sunday.</p>
+	<pre>$('#date2').DatePicker({
+		flat: true,
+		date: ['2008-07-31', '2008-07-28'],
+		current: '2008-07-31',
+		format: 'Y-m-d',
+		calendars: 1,
+		mode: 'multiple',
+		onRender: function(date) {
+			return {
+				disabled: (date.valueOf() < now.valueOf()),
+				className: date.valueOf() == now2.valueOf() ? 'datepickerSpecial' : false
+			}
+		},
+		starts: 0
+	});
+	</pre>
+
+	<p id="date3"></p>
+	<p>Flat mode, range selection, 3 calendars.</p>
+	<pre>$('#date3').DatePicker({
+		flat: true,
+		date: ['2008-07-28','2008-07-31'],
+		current: '2008-07-31',
+		calendars: 3,
+		mode: 'range',
+		starts: 1
+	});</pre></br>			
+	<p><a href="#" id="clearSelection">Clear selection</a></p>
+	<pre>$('#date3').DatePickerClear();</pre></br>
+
+	<p>
+		<input class="inputDate" id="inputDate" value="06/14/2008" />
+		<label id="closeOnSelect"><input type="checkbox" /> Close on selection</label>
+	</p>
+	<p>Attached to an text field and usign callbacks to update the date selection with the value from the field.</p>
+	<pre>$('#inputDate').DatePicker({
+		format:'m/d/Y',
+		date: $('#inputDate').val(),
+		current: $('#inputDate').val(),
+		starts: 1,
+		position: 'r',
+		onBeforeShow: function(){
+			$('#inputDate').DatePickerSetDate($('#inputDate').val(), true);
+		},
+		onChange: function(formated, dates){
+			$('#inputDate').val(formated);
+			if ($('#closeOnSelect input').attr('checked')) {
+				$('#inputDate').DatePickerHide();
+			}
 		}
-	}
-});</pre></br></br>
-				<p>Flat mode, inside a custom widget and with custom design.</p>
-				<div id="widget">
-					<div id="widgetField">
-						<span>28 July, 2008 &divide; 31 July, 2008</span>
-						<a href="#">Select date range</a>
-					</div>
-					<div id="widgetCalendar">
-					</div>
-				</div>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-				<p>&nbsp;</p>
-            </div>
-        </div>
-    </div>
+	});
+	</pre></br>
+
+	<p>Flat mode, inside a custom widget and with custom design.</p>
+	<div id="widget">
+		<div id="widgetField">
+			<span>28 July, 2008 &divide; 31 July, 2008</span>
+			<a href="#">Select date range</a>
+		</div>
+		<div id="widgetCalendar">
+		</div>
+	</div>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
 </body>
 </html>
