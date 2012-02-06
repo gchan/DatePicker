@@ -279,7 +279,7 @@ input.inputDate {
 #widgetCalendar .datepickerBorderTR,
 #widgetCalendar .datepickerBorderBL,
 #widgetCalendar .datepickerBorderBR {
-	background: transparent !important;
+	/*background: transparent !important;*/
 }
 #widgetCalendar .datepicker a:hover{
 	color: #b6f063;
