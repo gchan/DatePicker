@@ -76,25 +76,26 @@
 	});
 	</pre></br>
 
-	<p>Flat mode, inside a custom widget and with custom design.</p>
 	<div id="widget">
 		<div id="widgetField">
-			<span>28 July, 2008 &divide; 31 July, 2008</span>
+			<span>28 July, 2008 - 31 July, 2008</span>
 			<a href="#">Select date range</a>
 		</div>
 		<div id="widgetCalendar">
 		</div>
 	</div>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
-	<p>&nbsp;</p>
+	<p>Flat mode, inside a custom widget and with custom design.</p>
+	<pre>$('#widgetCalendar').DatePicker({
+		flat: true,
+		format: 'd B, Y',
+		date: [new Date(now3), new Date(now4)],
+		calendars: 3,
+		mode: 'range',
+		starts: 1,
+		onChange: function(formated) {
+			$('#widgetField span').get(0).innerHTML = formated.join(' - ');
+		}
+	});
+	</pre>
 </body>
 </html>

@@ -76,7 +76,7 @@ $(function() {
 		mode: 'range',
 		starts: 1,
 		onChange: function(formated) {
-			$('#widgetField span').get(0).innerHTML = formated.join(' &divide; ');
+			$('#widgetField span').get(0).innerHTML = formated.join(' - ');
 		}
 	});
 	var state = false;
