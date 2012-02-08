@@ -244,6 +244,10 @@
 				var against = format.split(/\W+/), d, m, y, h, min, now = new Date();
 				for (var i = 0; i < parts.length; i++) {
 					switch (against[i]) {
+						case 'b':
+							m = defaults.locale.monthsShort.indexOf(parts[i]);
+							m = m == -1 ? undefined : m;
+							break;
 						case 'd':
 						case 'e':
 							d = parseInt(parts[i],10);
