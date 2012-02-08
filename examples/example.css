@@ -28,7 +28,7 @@ input.inputDate {
 #widgetField {
 	width: 290px;
 	height: 26px;
-	background: url(../images/field.png);
+	background: url(field.png);
 	overflow: hidden;
 	position: relative;
 }
