@@ -111,6 +111,14 @@ div.datepicker {
         &.datepickerSpace div {
           width: 20px;
         }
+        &.dateRanges {
+          min-width: 130px; 
+          text-align: left;
+          text-indent: 10px; 
+          span {
+            line-height: 16px;
+          }
+        }
       }
       th {
         text-align: center;

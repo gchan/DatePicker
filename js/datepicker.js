@@ -9,6 +9,16 @@
 (function ($) {
 	var DatePicker = function () {
 		var	ids = {},
+			presetRanges = {
+				today: { dateStart: function(){ return Date.today(); }, dateEnd: function(){ return Date.today(); } },
+				lastSevenDays: { dateStart: function(){ return (7).days().ago().clearTime(); }, dateEnd: function(){ return Date.today(); } },
+				lastThirtyDays: { dateStart: function(){ return (30).days().ago().clearTime(); }, dateEnd: function(){ return Date.today(); } },
+				weekToDate: { dateStart: function(){ return Date.parse('last sunday'); }, dateEnd: function(){ return Date.today(); } },
+				monthToDate: { dateStart: function(){ return Date.parse('today').moveToFirstDayOfMonth(); }, dateEnd: function(){ return Date.today(); } },
+				yearToDate: { dateStart: function(){ var x= Date.parse('today'); x.setMonth(0); x.setDate(1); return x; }, dateEnd: function(){ return Date.today(); } },
+				previousWeek: { dateStart: function(){ return Date.parse('sunday-8days'); }, dateEnd: function(){ return Date.parse('last saturday'); } },
+				previousMonth: { dateStart: function(){ return Date.parse('last month').moveToFirstDayOfMonth(); }, dateEnd: function(){ return Date.parse('last month').moveToLastDayOfMonth(); } }
+			}, 
 			views = {
 				years: 'datepickerViewYears',
 				moths: 'datepickerViewMonths',
@@ -124,6 +134,20 @@
 							'<td colspan="2"><a href="#"><span><%=data[11]%></span></a></td>',
 						'</tr>',
 					'</tbody>'
+				],
+				date_ranges: [
+					'<td class="dateRanges">',
+						'<div class="dateRanges">',
+							'<a href="#" class="today"><span>Today</span>',
+							'<a href="#" class="lastSevenDays"><span>Last 7 Days</span>',
+							'<a href="#" class="lastThirtyDays"><span>Last 30 Days</span>',
+							'<a href="#" class="weekToDate"><span>Week to Date</span>',
+							'<a href="#" class="monthToDate"><span>Month to Date</span>',
+							'<a href="#" class="yearToDate"><span>Year to Date</span>',
+							'<a href="#" class="previousWeek"><span>Previous Week</span>',
+							'<a href="#" class="previousMonth"><span>Previous Month</span>',
+						'</div>',
+					'</td>'
 				]
 			},
 			defaults = {
@@ -578,6 +602,15 @@
 						}
 						fillIt = true;
 						changed = true;
+					} else if (parentEl.hasClass('dateRanges')) {
+						dateRange = presetRanges[el.get(0).className];
+						if (dateRange){
+							options.date[0] = dateRange.dateStart();
+							options.date[1] = dateRange.dateEnd();
+							options.current = dateRange.dateStart();
+							fillIt = true;
+							changed = true;
+						}
 					}
 					if (fillIt) {
 						fill(this);
@@ -739,6 +772,9 @@
 							cal.addClass(options.className);
 						}
 						var html = '';
+						if (options.mode == 'range'){
+							html += tpl.date_ranges.join('');
+						}
 						for (var i = 0; i < options.calendars; i++) {
 							cnt = options.starts;
 							if (i > 0) {

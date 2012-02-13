@@ -91,6 +91,12 @@ div.datepicker {
           color: #666; }
         div.datepicker .datepickerContainer table td.datepickerSpace div {
           width: 20px; }
+        div.datepicker .datepickerContainer table td.dateRanges {
+          min-width: 130px;
+          text-align: left;
+          text-indent: 10px; }
+          div.datepicker .datepickerContainer table td.dateRanges span {
+            line-height: 16px; }
       div.datepicker .datepickerContainer table th {
         text-align: center;
         color: #999;
