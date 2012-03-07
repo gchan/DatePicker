@@ -14,10 +14,10 @@
 				lastSevenDays: { dateStart: function(){ return new Date().addDays(-7).clearTime(); }, dateEnd: function(){ return new Date(); } },
 				lastThirtyDays: { dateStart: function(){ return new Date().addDays(-30).clearTime(); }, dateEnd: function(){ return new Date(); } },
 				weekToDate: { dateStart: function(){ return new Date().setDay(1).clearTime(); }, dateEnd: function(){ return new Date(); } },
-				monthToDate: { dateStart: function(){ var x = new Date(); x.setDate(1); x.clearTime(); return x; }, dateEnd: function(){ return new Date(); } },
-				yearToDate: { dateStart: function(){ var x = new Date(); x.setMonth(0); x.setDate(1); x.clearTime(); return x; }, dateEnd: function(){ return new Date(); } },
-				previousWeek: { dateStart: function(){ var x = new Date(); x.setDay(1); x.addDays(-7).clearTime(); return x; }, dateEnd: function(){ return new Date().setDay(7); } },
-				previousMonth: { dateStart: function(){ var x = new Date(); x.addMonths(-1); x.setDate(1); x.clearTime(); return x; }, dateEnd: function(){ var x = new Date(); x.addMonths(-1); x.setDate(x.getMaxDays()); return x; } }
+				monthToDate: { dateStart: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
+				yearToDate: { dateStart: function(){ var d = new Date(); d.setMonth(0); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
+				previousWeek: { dateStart: function(){ var d = new Date(); d.setDay(1); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setDay(7); } },
+				previousMonth: { dateStart: function(){ var d = new Date(); d.addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.addMonths(-1); d.setDate(d.getMaxDays()); return d; } }
 			},
 			views = {
 				years: 'datepickerViewYears',
@@ -157,6 +157,7 @@
 				next: '&#9654;',
 				lastSel: false,
 				mode: 'single',
+				presetRanges: false,
 				view: 'days',
 				calendars: 1,
 				format: 'Y-m-d',
@@ -787,7 +788,7 @@
 							cal.addClass(options.className);
 						}
 						var html = '';
-						if (options.mode == 'range'){
+						if (options.mode == 'range' && options.presetRanges){
 							html += tpl.date_ranges.join('');
 						}
 						for (var i = 0; i < options.calendars; i++) {
@@ -912,35 +913,35 @@
 })(jQuery);
 
 (function(){
-  var cache = {};
+	var cache = {};
 
-  this.tmpl = function tmpl(str, data){
-    // Figure out if we're getting a template, or if we need to
-    // load the template - and be sure to cache the result.
-    var fn = !/\W/.test(str) ?
-      cache[str] = cache[str] ||
-        tmpl(document.getElementById(str).innerHTML) :
+	this.tmpl = function tmpl(str, data){
+	// Figure out if we're getting a template, or if we need to
+	// load the template - and be sure to cache the result.
+	var fn = !/\W/.test(str) ?
+		cache[str] = cache[str] ||
+		tmpl(document.getElementById(str).innerHTML) :
 
-      // Generate a reusable function that will serve as a template
-      // generator (and which will be cached).
-      new Function("obj",
-        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+		// Generate a reusable function that will serve as a template
+		// generator (and which will be cached).
+		new Function("obj",
+			"var p=[],print=function(){p.push.apply(p,arguments);};" +
 
-        // Introduce the data as local variables using with(){}
-        "with(obj){p.push('" +
+		// Introduce the data as local variables using with(){}
+			"with(obj){p.push('" +
 
-        // Convert the template into pure JavaScript
-        str
-          .replace(/[\r\t\n]/g, " ")
-          .split("<%").join("\t")
-          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-          .replace(/\t=(.*?)%>/g, "',$1,'")
-          .split("\t").join("');")
-          .split("%>").join("p.push('")
-          .split("\r").join("\\'")
-      + "');}return p.join('');");
+		// Convert the template into pure JavaScript
+		str
+			.replace(/[\r\t\n]/g, " ")
+			.split("<%").join("\t")
+			.replace(/((^|%>)[^\t]*)'/g, "$1\r")
+			.replace(/\t=(.*?)%>/g, "',$1,'")
+			.split("\t").join("');")
+			.split("%>").join("p.push('")
+			.split("\r").join("\\'")
+			+ "');}return p.join('');");
 
-    // Provide some basic currying to the user
-    return data ? fn( data ) : fn;
-  };
+		// Provide some basic currying to the user
+		return data ? fn( data ) : fn;
+	};
 })();
