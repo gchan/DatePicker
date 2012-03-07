@@ -16,8 +16,8 @@
 				weekToDate: { dateStart: function(){ return new Date().setDay(1).clearTime(); }, dateEnd: function(){ return new Date(); } },
 				monthToDate: { dateStart: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
 				yearToDate: { dateStart: function(){ var d = new Date(); d.setMonth(0); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
-				previousWeek: { dateStart: function(){ var d = new Date(); d.setDay(1); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setDay(7); } },
-				previousMonth: { dateStart: function(){ var d = new Date(); d.addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.addMonths(-1); d.setDate(d.getMaxDays()); return d; } }
+				previousWeek: { dateStart: function(){ var d = new Date(); d.setDay(1); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setDay(7).setHours(23,59,59,999); } },
+				previousMonth: { dateStart: function(){ var d = new Date(); d.addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.addMonths(-1); d.setDate(d.getMaxDays()); d.setHours(23,59,59,0); return d; } }
 			},
 			views = {
 				years: 'datepickerViewYears',
