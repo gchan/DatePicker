@@ -10,14 +10,14 @@
 	var DatePicker = function () {
 		var	ids = {},
 			presetRanges = {
-				today: { dateStart: function(){ return Date.today(); }, dateEnd: function(){ return Date.today(); } },
-				lastSevenDays: { dateStart: function(){ return (7).days().ago().clearTime(); }, dateEnd: function(){ return Date.today(); } },
-				lastThirtyDays: { dateStart: function(){ return (30).days().ago().clearTime(); }, dateEnd: function(){ return Date.today(); } },
-				weekToDate: { dateStart: function(){ return Date.parse('last sunday'); }, dateEnd: function(){ return Date.today(); } },
-				monthToDate: { dateStart: function(){ return Date.parse('today').moveToFirstDayOfMonth(); }, dateEnd: function(){ return Date.today(); } },
-				yearToDate: { dateStart: function(){ var x= Date.parse('today'); x.setMonth(0); x.setDate(1); return x; }, dateEnd: function(){ return Date.today(); } },
-				previousWeek: { dateStart: function(){ return Date.parse('sunday-8days'); }, dateEnd: function(){ return Date.parse('last saturday'); } },
-				previousMonth: { dateStart: function(){ return Date.parse('last month').moveToFirstDayOfMonth(); }, dateEnd: function(){ return Date.parse('last month').moveToLastDayOfMonth(); } }
+				today: { dateStart: function(){ return new Date().clearTime(); }, dateEnd: function(){ return new Date(); } },
+				lastSevenDays: { dateStart: function(){ return new Date().addDays(-7).clearTime(); }, dateEnd: function(){ return new Date(); } },
+				lastThirtyDays: { dateStart: function(){ return new Date().addDays(-30).clearTime(); }, dateEnd: function(){ return new Date(); } },
+				weekToDate: { dateStart: function(){ return new Date().setDay(1).clearTime(); }, dateEnd: function(){ return new Date(); } },
+				monthToDate: { dateStart: function(){ var x = new Date(); x.setDate(1); x.clearTime(); return x; }, dateEnd: function(){ return new Date(); } },
+				yearToDate: { dateStart: function(){ var x = new Date(); x.setMonth(0); x.setDate(1); x.clearTime(); return x; }, dateEnd: function(){ return new Date(); } },
+				previousWeek: { dateStart: function(){ var x = new Date(); x.setDay(1); x.addDays(-7).clearTime(); return x; }, dateEnd: function(){ return new Date().setDay(7); } },
+				previousMonth: { dateStart: function(){ var x = new Date(); x.addMonths(-1); x.setDate(1); x.clearTime(); return x; }, dateEnd: function(){ var x = new Date(); x.addMonths(-1); x.setDate(x.getMaxDays()); return x; } }
 			},
 			views = {
 				years: 'datepickerViewYears',
@@ -419,6 +419,7 @@
 				Date.prototype.addDays = function (n) {
 					this.setDate(this.getDate() + n);
 					this.tempDate = this.getDate();
+					return this;
 				};
 				Date.prototype.addMonths = function (n) {
 					if (this.tempDate == null) {
@@ -427,6 +428,7 @@
 					this.setDate(1);
 					this.setMonth(this.getMonth() + n);
 					this.setDate(Math.min(this.tempDate, this.getMaxDays()));
+					return this;
 				};
 				Date.prototype.addYears = function (n) {
 					if (this.tempDate == null) {
@@ -435,6 +437,7 @@
 					this.setDate(1);
 					this.setFullYear(this.getFullYear() + n);
 					this.setDate(Math.min(this.tempDate, this.getMaxDays()));
+					return this;
 				};
 				Date.prototype.getMaxDays = function() {
 					var tmpDate = new Date(Date.parse(this)),
@@ -465,6 +468,18 @@
 					var then = new Date(this.getFullYear(), 0, 0, 0, 0, 0);
 					var time = now - then;
 					return Math.floor(time / 24*60*60*1000);
+				};
+				Date.prototype.clearTime = function () {
+					this.setHours(0); 
+					this.setMinutes(0); 
+					this.setSeconds(0);
+					this.setMilliseconds(0); 
+					return this;
+				};
+				Date.prototype.setDay = function(day){
+					var minus = (day - this.getDay() -7) % 7;
+					this.setMilliseconds(this.getMilliseconds() + minus * 86400000);
+					return this;
 				};
 			},
 			layout = function (el) {
