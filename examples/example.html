@@ -93,5 +93,29 @@
 		$('#widgetField span').get(0).innerHTML = formated.join(' - ');
 	}
 });</pre>
+
+	<p class="dateRangePicker">
+		<input id="startDate" value="14/06/2011 11:57" />
+		<input id="endDate" value="16/06/2011 13:37" />
+	</p>
+	<p>Attached to an text field and usign callbacks to update the date selection with the value from the field.</p>
+	<pre>$('.dateRangePicker').DatePicker({
+	format:'d/m/Y H:M',
+	date: [$('#startDate').val(), $('#endDate').val()],
+	current: $('#endDate').val(),
+	starts: 1,
+	calendars: 2,
+	mode: 'range',
+	presetRanges: true,
+	position: 'bottom',
+	onBeforeShow: function(){
+		$('.dateRangePicker').DatePickerSetDate([$('#startDate').val(), $('#endDate').val()], true);
+	},
+	onChange: function(formated, dates){
+		$('#startDate').val(formated[0]);
+		$('#endDate').val(formated[1]);
+	}
+});</pre></br>
+
 </body>
 </html>

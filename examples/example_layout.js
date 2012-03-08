@@ -86,4 +86,23 @@ $(function() {
 		return false;
 	});
 	$('#widgetCalendar div.datepicker').css('position', 'absolute');
+
+
+	$('.dateRangePicker').DatePicker({
+		format:'d/m/Y H:M',
+		date: [$('#startDate').val(), $('#endDate').val()],
+		current: $('#endDate').val(),
+		starts: 1,
+		calendars: 2,
+		mode: 'range',
+		presetRanges: true,
+		position: 'bottom',
+		onBeforeShow: function(){
+			$('.dateRangePicker').DatePickerSetDate([$('#startDate').val(), $('#endDate').val()], true);
+		},
+		onChange: function(formated, dates){
+			$('#startDate').val(formated[0]);
+			$('#endDate').val(formated[1]);
+		}
+	});
 });
