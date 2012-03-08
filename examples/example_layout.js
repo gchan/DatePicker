@@ -92,7 +92,7 @@ $(function() {
 		format:'d/m/Y H:M',
 		date: [$('#startDate').val(), $('#endDate').val()],
 		current: $('#endDate').val(),
-		starts: 1,
+		starts: 7,
 		calendars: 2,
 		mode: 'range',
 		presetRanges: true,

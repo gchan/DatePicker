@@ -98,12 +98,12 @@
 		<input id="startDate" value="14/06/2011 11:57" />
 		<input id="endDate" value="16/06/2011 13:37" />
 	</p>
-	<p>Attached to an text field and usign callbacks to update the date selection with the value from the field.</p>
+	<p>Range selection with preset ranges. Attached to two text fields and usign callbacks to update the date selection with the value from the field.</p>
 	<pre>$('.dateRangePicker').DatePicker({
 	format:'d/m/Y H:M',
 	date: [$('#startDate').val(), $('#endDate').val()],
 	current: $('#endDate').val(),
-	starts: 1,
+	starts: 7,
 	calendars: 2,
 	mode: 'range',
 	presetRanges: true,

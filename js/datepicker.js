@@ -13,10 +13,10 @@
 				today: { dateStart: function(){ return new Date().clearTime(); }, dateEnd: function(){ return new Date(); } },
 				lastSevenDays: { dateStart: function(){ return new Date().addDays(-7).clearTime(); }, dateEnd: function(){ return new Date(); } },
 				lastThirtyDays: { dateStart: function(){ return new Date().addDays(-30).clearTime(); }, dateEnd: function(){ return new Date(); } },
-				weekToDate: { dateStart: function(){ return new Date().setDay(1).clearTime(); }, dateEnd: function(){ return new Date(); } },
+				weekToDate: { dateStart: function(){ return new Date().startOfWeek().clearTime(); }, dateEnd: function(){ return new Date(); } },
 				monthToDate: { dateStart: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
 				yearToDate: { dateStart: function(){ var d = new Date(); d.setMonth(0); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
-				previousWeek: { dateStart: function(){ var d = new Date(); d.setDay(1); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setDay(7).setHours(23,59,59,999); } },
+				previousWeek: { dateStart: function(){ var d = new Date(); d.startOfWeek(); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().startOfWeek().addDays(-1).setHours(23,59,59,999); } },
 				previousMonth: { dateStart: function(){ var d = new Date(); d.addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.addMonths(-1); d.setDate(d.getMaxDays()); d.setHours(23,59,59,0); return d; } }
 			},
 			views = {
@@ -407,10 +407,11 @@
 					return;
 				}
 				Date.prototype.tempDate = null;
-				Date.prototype.months = options.months;
-				Date.prototype.monthsShort = options.monthsShort;
-				Date.prototype.days = options.days;
-				Date.prototype.daysShort = options.daysShort;
+				Date.prototype.months = options.locale.months;
+				Date.prototype.monthsShort = options.locale.monthsShort;
+				Date.prototype.days = options.locale.days;
+				Date.prototype.daysShort = options.locale.daysShort;
+				Date.prototype.weekStarts = options.starts;
 				Date.prototype.getMonthName = function(fullName) {
 					return this[fullName ? 'months' : 'monthsShort'][this.getMonth()];
 				};
@@ -480,6 +481,10 @@
 				Date.prototype.setDay = function(day){
 					var minus = (day - this.getDay() -7) % 7;
 					this.setMilliseconds(this.getMilliseconds() + minus * 86400000);
+					return this;
+				};
+				Date.prototype.startOfWeek = function(){
+					this.setDay(this.weekStarts);
 					return this;
 				};
 			},
@@ -746,7 +751,7 @@
 		return {
 			init: function(options){
 				options = $.extend({}, defaults, options||{});
-				extendDate(options.locale);
+				extendDate(options);
 				options.calendars = Math.max(1, parseInt(options.calendars,10)||1);
 				options.mode = /single|multiple|range/.test(options.mode) ? options.mode : 'single';
 				return this.each(function(){
