@@ -180,7 +180,7 @@
 			fill = function(el) {
 				var options = $(el).data('datepicker');
 				var cal = $(el);
-				var currentCal = Math.floor(options.calendars/2), date, data, dow, month, cnt = 0, week, days, indic, indic2, html, tblCal;
+				var currentCal = Math.floor((options.calendars - 1)/2), date, data, dow, month, cnt = 0, week, days, indic, indic2, html, tblCal;
 				cal.find('td>table tbody').remove();
 				for (var i = 0; i < options.calendars; i++) {
 					date = new Date(options.current);
@@ -527,7 +527,7 @@
 					if (parentEl.is('th')) {
 						if (parentEl.hasClass('datepickerWeek') && options.mode == 'range' && !parentEl.next().hasClass('datepickerDisabled')) {
 							var val = parseInt(parentEl.next().text(), 10);
-							tmp.addMonths(tblIndex - Math.floor(options.calendars/2));
+							tmp.addMonths(tblIndex - Math.floor((options.calendars - 1)/2));
 							if (parentEl.next().hasClass('datepickerNotInMonth')) {
 								tmp.addMonths(val > 15 ? -1 : 1);
 							}
@@ -540,7 +540,7 @@
 							changed = true;
 							options.lastSel = false;
 						} else if (parentEl.hasClass('datepickerMonth')) {
-							tmp.addMonths(tblIndex - Math.floor(options.calendars/2));
+							tmp.addMonths(tblIndex - Math.floor((options.calendars - 1)/2));
 							switch (tblEl.get(0).className) {
 								case 'datepickerViewDays':
 									tblEl.get(0).className = 'datepickerViewMonths';
@@ -574,7 +574,7 @@
 							case 'datepickerViewMonths':
 								options.current.setMonth(tblEl.find('tbody.datepickerMonths td').index(parentEl));
 								options.current.setFullYear(parseInt(tblEl.find('thead th.datepickerMonth span').text(), 10));
-								options.current.addMonths(Math.floor(options.calendars/2) - tblIndex);
+								options.current.addMonths(Math.floor((options.calendars - 1)/2) - tblIndex);
 								tblEl.get(0).className = 'datepickerViewDays';
 								break;
 							case 'datepickerViewYears':
@@ -583,7 +583,7 @@
 								break;
 							default:
 								var val = parseInt(el.text(), 10);
-								tmp.addMonths(tblIndex - Math.floor(options.calendars/2));
+								tmp.addMonths(tblIndex - Math.floor((options.calendars - 1)/2));
 								if (parentEl.hasClass('datepickerNotInMonth')) {
 									tmp.addMonths(val > 15 ? -1 : 1);
 								}
