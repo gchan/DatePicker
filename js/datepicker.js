@@ -13,10 +13,10 @@
 				today: { dateStart: function(){ return new Date().clearTime(); }, dateEnd: function(){ return new Date(); } },
 				lastSevenDays: { dateStart: function(){ return new Date().addDays(-7).clearTime(); }, dateEnd: function(){ return new Date(); } },
 				lastThirtyDays: { dateStart: function(){ return new Date().addDays(-30).clearTime(); }, dateEnd: function(){ return new Date(); } },
-				weekToDate: { dateStart: function(){ return new Date().startOfWeek().clearTime(); }, dateEnd: function(){ return new Date(); } },
+				weekToDate: { dateStart: function(){ return new Date().setStartOfWeek().clearTime(); }, dateEnd: function(){ return new Date(); } },
 				monthToDate: { dateStart: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
 				yearToDate: { dateStart: function(){ var d = new Date(); d.setMonth(0); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
-				previousWeek: { dateStart: function(){ var d = new Date(); d.startOfWeek(); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().startOfWeek().addDays(-1).setHours(23,59,59,999); } },
+				previousWeek: { dateStart: function(){ var d = new Date(); d.setStartOfWeek(); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setStartOfWeek().addDays(-1).setHours(23,59,59,999); } },
 				previousMonth: { dateStart: function(){ var d = new Date(); d.addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.addMonths(-1); d.setDate(d.getMaxDays()); d.setHours(23,59,59,0); return d; } }
 			},
 			views = {
@@ -483,7 +483,7 @@
 					this.setMilliseconds(this.getMilliseconds() + minus * 86400000);
 					return this;
 				};
-				Date.prototype.startOfWeek = function(){
+				Date.prototype.setStartOfWeek = function(){
 					this.setDay(this.weekStarts);
 					return this;
 				};
@@ -533,8 +533,7 @@
 							}
 							tmp.setDate(val);
 							options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
-							tmp.setHours(23,59,59,0);
-							tmp.addDays(6);
+							tmp.addDays(7);
 							options.date[1] = tmp.valueOf();
 							fillIt = true;
 							changed = true;
@@ -630,6 +629,7 @@
 							options.current = dateRange.dateStart();
 							fillIt = true;
 							changed = true;
+							options.lastSel = false;
 						}
 					}
 					if (fillIt) {
