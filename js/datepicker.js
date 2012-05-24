@@ -305,11 +305,11 @@
 					}
 				}
 				return new Date(
-					y === undefined ? now.getFullYear() : y,
-					m === undefined ? now.getMonth() : m,
-					d === undefined ? now.getDate() : d,
-					h === undefined ? now.getHours() : h,
-					min === undefined ? now.getMinutes() : min,
+					y === undefined || isNaN(y) ? now.getFullYear() : y,
+					m === undefined || isNaN(m) ? now.getMonth() : m,
+					d === undefined || isNaN(d) ? now.getDate() : d,
+					h === undefined || isNaN(h) ? now.getHours() : h,
+					min === undefined || isNaN(min) ? now.getMinutes() : min,
 					0
 				);
 			},
