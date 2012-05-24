@@ -239,7 +239,7 @@
 						}
 						var fromUser = options.onRender(date);
 						var val = date.valueOf();
-						if (fromUser.selected || options.date == val || $.inArray(val, options.date) > -1 || (options.mode == 'range' && val >= options.date[0] && val <= options.date[1])) {
+						if (fromUser.selected || options.date == val || $.inArray(val, options.date) == 0 || (options.mode == 'range' && val >= options.date[0] && val < options.date[1])) {
 							data.weeks[indic].days[indic2].classname.push('datepickerSelected');
 						}
 						if (fromUser.disabled) {
@@ -604,14 +604,13 @@
 										break;
 									case 'range':
 										if (!options.lastSel) {
-											options.date[0] = (tmp.setHours(0,0,0,0)).valueOf();
+											options.date[0] = (tmp.clearTime()).valueOf();
 										}
-										val = (tmp.setHours(23,59,59,0)).valueOf();
+										val = (tmp.clearTime()).valueOf();
 										if (val < options.date[0]) {
-											options.date[1] = options.date[0] + 86399000;
-											options.date[0] = val - 86399000;
+											options.date[0] = val;
 										} else {
-											options.date[1] = val;
+											options.date[1] = new Date(val).addDays(1);
 										}
 										options.lastSel = !options.lastSel;
 										break;
@@ -856,14 +855,14 @@
 							if (options.date.constructor != Array) {
 								options.date = [options.date.valueOf()];
 								if (options.mode == 'range') {
-									options.date.push(((new Date(options.date[0])).setHours(23,59,59,0)).valueOf());
+									options.date.push(((new Date(options.date[0])).addDays(1)).valueOf());
 								}
 							} else {
 								for (var i = 0; i < options.date.length; i++) {
 									options.date[i] = (parseDate(options.date[i], options.format).setHours(0,0,0,0)).valueOf();
 								}
 								if (options.mode == 'range') {
-									options.date[1] = ((new Date(options.date[1])).setHours(23,59,59,0)).valueOf();
+									options.date[1] = ((new Date(options.date[1])).clearTime()).valueOf();
 								}
 							}
 						} else {
