@@ -10,14 +10,14 @@
 	var DatePicker = function () {
 		var	ids = {},
 			presetRanges = {
-				today: { dateStart: function(){ return new Date().clearTime(); }, dateEnd: function(){ return new Date(); } },
-				lastSevenDays: { dateStart: function(){ return new Date().addDays(-7).clearTime(); }, dateEnd: function(){ return new Date(); } },
-				lastThirtyDays: { dateStart: function(){ return new Date().addDays(-30).clearTime(); }, dateEnd: function(){ return new Date(); } },
-				weekToDate: { dateStart: function(){ return new Date().setStartOfWeek().clearTime(); }, dateEnd: function(){ return new Date(); } },
-				monthToDate: { dateStart: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
-				yearToDate: { dateStart: function(){ var d = new Date(); d.setMonth(0); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date(); } },
-				previousWeek: { dateStart: function(){ var d = new Date(); d.setStartOfWeek(); d.addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setStartOfWeek().addDays(-1).setHours(23,59,59,999); } },
-				previousMonth: { dateStart: function(){ var d = new Date(); d.addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.addMonths(-1); d.setDate(d.getMaxDays()); d.setHours(23,59,59,0); return d; } }
+				today: { dateStart: function(){ return new Date().clearTime(); }, dateEnd: function(){ return new Date().clearTime().addDays(1); } },
+				lastSevenDays: { dateStart: function(){ return new Date().addDays(-7).clearTime(); }, dateEnd: function(){ return new Date().clearTime(); } },
+				lastThirtyDays: { dateStart: function(){ return new Date().addDays(-30).clearTime(); }, dateEnd: function(){ return new Date().clearTime(); } },
+				weekToDate: { dateStart: function(){ return new Date().setStartOfWeek().clearTime(); }, dateEnd: function(){ return new Date().clearTime().addDays(1); } },
+				monthToDate: { dateStart: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date().clearTime().addDays(1); } },
+				yearToDate: { dateStart: function(){ var d = new Date(); d.setMonth(0); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ return new Date().clearTime().addDays(1); } },
+				previousWeek: { dateStart: function(){ var d = new Date().setStartOfWeek().addDays(-7).clearTime(); return d; }, dateEnd: function(){ return new Date().setStartOfWeek().clearTime(); } },
+				previousMonth: { dateStart: function(){ var d = new Date().addMonths(-1); d.setDate(1); d.clearTime(); return d; }, dateEnd: function(){ var d = new Date(); d.setDate(1); d.clearTime(); return d; } }
 			},
 			views = {
 				years: 'datepickerViewYears',
