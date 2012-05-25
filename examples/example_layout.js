@@ -1,4 +1,12 @@
 $(function() {
+	$('#mainStyle').on('click', function(){
+		$('link#datepicker-style').attr('href', '../css/datepicker.css');
+	});
+
+	$('#altStyle').on('click', function(){
+		$('link#datepicker-style').attr('href', '../css/alt-datepicker.css');
+	});
+
 	$('#date').DatePicker({
 		flat: true,
 		date: '2008-07-31',

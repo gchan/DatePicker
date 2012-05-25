@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<link rel="stylesheet" href="../css/datepicker.css" type="text/css" />
+	<link id="datepicker-style" rel="stylesheet" href="../css/datepicker.css" type="text/css" />
     <link rel="stylesheet" media="screen" type="text/css" href="example.css" />
     <title>DatePicker - jQuery plugin</title>
 	<script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
@@ -10,6 +10,9 @@
 </head>
 <body>
     <h1>Date Picker - jQuery plugin</h1>
+
+	<a href="#" id="mainStyle">Main Style</a> | <a href="#" id="altStyle">Alt. Style</a>
+
 	<p id="date"></p>
 	<p>Flat mode, single selection, the week start monday.</p>
 	<pre>$('#date').DatePicker({
